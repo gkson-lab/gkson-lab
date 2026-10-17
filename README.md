@@ -1,7 +1,7 @@
 
 ## whaddup 👋
 
-I'm **gk** a cool person who just works on genuinly anything
+I'm **gk** a cool person who just works on genuinely anything
 
 - 🏎️ Working on an **F1 race companion app**
 - Adding more to my profile
