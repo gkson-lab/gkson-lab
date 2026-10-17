@@ -1,11 +1,12 @@
 
-## Hey there 👋
+## whaddup 👋
 
-I'm **GK**, a student who likes building things, like games and apps.
+I'm **gk** a cool person who just works on genuinly anything
 
 - 🏎️ Working on an **F1 race companion app**
+- Adding more to my profile
+- Plus, working in the real world (scary) with hardware.
 - 🌱 Learning more about Python
-- 📫 Reach me at: you@example.com or @yourname on Discord
 
 ### What I use
 
