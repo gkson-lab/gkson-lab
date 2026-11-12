@@ -1,12 +1,13 @@
 
-## whaddup 👋
+## how did we get here? 👋
 
 I'm **gk** a cool person who just works on genuinely anything
 
-- 🏎️ Working on an **F1 race companion app**
-- Adding more to my profile
-- Plus, working in the real world (scary) with hardware.
-- 🌱 Learning more about Python
+- helping with Oreon and Oreon security over there ➡️
+- making useful or useless apps and tools
+- developing onyx, my own opensource AI
+- messing around
+
 
 ### What I use
 
