@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Real-time 3D wind tunnel. Simulate airflow around PC cases, cars, sandwiches and your own 3D models." />
+    <meta name="theme-color" content="#06080c" />
+    <title>Zephyr — 3D Wind Tunnel</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2306080c'/><path d='M5 11h14a4 4 0 1 0-4-4M5 16h20a4 4 0 1 1-4 4M5 21h9a3 3 0 1 1-3 3' fill='none' stroke='%2345dcff' stroke-width='2.2' stroke-linecap='round'/></svg>" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="view" aria-label="3D wind tunnel view"></canvas>
+
+    <header class="topbar glass">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M4 11h15a4 4 0 1 0-4-4M4 16h21a4 4 0 1 1-4 4M4 21h10a3 3 0 1 1-3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+        <div>
+          <strong>Zephyr</strong>
+          <span>3D wind tunnel</span>
+        </div>
+      </div>
+      <div class="subject">
+        <span id="subjectName">—</span>
+        <small id="subjectDesc"></small>
+      </div>
+      <div class="actions">
+        <button id="btnPanels" class="btn icon only-mobile" title="Presets" aria-label="Toggle presets">☰</button>
+        <button id="btnPlay" class="btn" title="Pause / resume (Space)"><span id="playIcon">❚❚</span><span class="lbl" id="playLabel">Pause</span></button>
+        <button id="btnReset" class="btn" title="Restart the flow (R)">↺<span class="lbl">Reset flow</span></button>
+        <button id="btnShot" class="btn" title="Save a screenshot">⤓<span class="lbl">Snapshot</span></button>
+        <button id="btnControls" class="btn icon only-mobile" title="Controls" aria-label="Toggle controls">⚙</button>
+      </div>
+    </header>
+
+    <aside class="panel left glass" id="panelLeft">
+      <div class="panel-head">
+        <h2>Test subjects</h2>
+        <input id="search" type="search" placeholder="Search…" aria-label="Search presets" />
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="gallery" id="gallery"></div>
+      <label class="drop" id="drop">
+        <input id="file" type="file" multiple hidden />
+        <strong>Import your own 3D model</strong>
+        <span>Drop a file anywhere or click to browse<br />GLB · glTF · OBJ · STL · PLY · FBX</span>
+      </label>
+    </aside>
+
+    <aside class="panel right glass" id="panelRight">
+      <section>
+        <h2>Flow</h2>
+        <label class="row"><span>Wind speed</span><output id="oSpeed"></output>
+          <input id="speed" type="range" min="0" max="400" step="1" /></label>
+        <label class="row" id="fanRow"><span>Fan power</span><output id="oFan"></output>
+          <input id="fan" type="range" min="0" max="150" step="1" value="100" /></label>
+      </section>
+
+      <section>
+        <h2>Subject</h2>
+        <label class="row"><span>Yaw</span><output id="oYaw"></output>
+          <input id="yaw" type="range" min="-180" max="180" step="1" value="0" /></label>
+        <label class="row"><span>Pitch <em>(angle of attack)</em></span><output id="oPitch"></output>
+          <input id="pitch" type="range" min="-90" max="90" step="1" value="0" /></label>
+        <label class="row"><span>Roll</span><output id="oRoll"></output>
+          <input id="roll" type="range" min="-180" max="180" step="1" value="0" /></label>
+        <label class="row"><span>Scale</span><output id="oScale"></output>
+          <input id="scale" type="range" min="40" max="140" step="1" value="100" /></label>
+        <label class="row inline"><span>Real size <em>(longest side, m)</em></span>
+          <input id="real" type="number" min="0.001" step="any" inputmode="decimal" /></label>
+        <div class="seg" id="segBody" role="group" aria-label="Body display">
+          <button data-v="solid" class="on">Solid</button><button data-v="ghost">Ghost</button><button data-v="voxels">Solver view</button>
+        </div>
+        <label class="check"><input id="grounded" type="checkbox" /> Sit on the tunnel floor</label>
+      </section>
+
+      <section>
+        <h2>Smoke</h2>
+        <div class="seg" id="segSeed" role="group" aria-label="Smoke seeding">
+          <button data-v="inlet" class="on">Sheet</button><button data-v="rake">Rake</button><button data-v="volume">Volume</button><button data-v="off">Off</button>
+        </div>
+        <label class="row"><span>Density</span><output id="oCount"></output>
+          <input id="count" type="range" min="1000" max="24000" step="500" value="6000" /></label>
+        <div class="seg" id="segColor" role="group" aria-label="Smoke colour">
+          <button data-v="speed" class="on">Colour by speed</button><button data-v="pressure">by pressure</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cut plane</h2>
+        <div class="seg" id="segSlice" role="group" aria-label="Cut plane field">
+          <button data-v="off" class="on">Off</button><button data-v="speed">Speed</button><button data-v="pressure">Pressure</button><button data-v="vorticity">Vorticity</button>
+        </div>
+        <div class="seg" id="segAxis" role="group" aria-label="Cut plane orientation">
+          <button data-v="z" class="on">Side</button><button data-v="y">Top</button><button data-v="x">Front</button>
+        </div>
+        <label class="row"><span>Position</span><output id="oSlicePos"></output>
+          <input id="slicePos" type="range" min="0" max="100" step="1" value="50" /></label>
+      </section>
+
+      <section>
+        <h2>Solver</h2>
+        <div class="seg" id="segQuality" role="group" aria-label="Grid resolution">
+          <button data-v="32">Draft</button><button data-v="48" class="on">Standard</button><button data-v="64">Fine</button><button data-v="80">Ultra</button>
+        </div>
+        <p class="note" id="gridNote"></p>
+      </section>
+    </aside>
+
+    <footer class="hud glass" id="hud">
+      <div class="stat"><label>Drag coefficient</label><b id="sCd">—</b><small>C<sub>d</sub></small></div>
+      <div class="stat"><label id="lLift">Lift coefficient</label><b id="sCl">—</b><small>C<sub>l</sub></small></div>
+      <div class="stat"><label>Drag force</label><b id="sDrag">—</b><small id="uDrag">N</small></div>
+      <div class="stat"><label id="lLiftF">Lift</label><b id="sLift">—</b><small id="uLift">N</small></div>
+      <div class="stat"><label>Reynolds number</label><b id="sRe">—</b><small id="sReSim"></small></div>
+      <div class="stat wide">
+        <label>Force history <i class="k cd"></i>C<sub>d</sub> <i class="k cl"></i>C<sub>l</sub></label>
+        <canvas id="spark" width="360" height="72"></canvas>
+      </div>
+      <div class="stat"><label>Solver</label><b id="sSps">—</b><small>steps / s</small></div>
+    </footer>
+
+    <div class="legend glass" id="legend">
+      <span id="legendTitle">Speed</span>
+      <div class="bar" id="legendBar"></div>
+      <div class="ticks"><span id="legendMin"></span><span id="legendMid"></span><span id="legendMax"></span></div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="dropveil" id="dropveil"><div>Drop to load into the tunnel</div></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
