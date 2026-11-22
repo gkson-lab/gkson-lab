@@ -3,7 +3,135 @@
 
 i'm **gk**, and this is **gk-labs**.
 
-<a href="https://gkson-lab.github.io/gkson-lab/"><img src="assets/readme/site-preview.jpg" alt="the gk-labs site: the word gk-labs next to a glass prism splitting a beam of light into a spectrum" width="100%"></a>
+
+<!-- ORGANIZATIONS SECTION -->
+
+<h2 align="center">🏢 Organizations & Teams</h2>
+<p align="center">
+  <i>Leading projects and contributing to development teams.</i>
+</p>
+
+<table width="100%">
+  <tr>
+    <!-- GK-LABS CARD -->
+    <td width="50%" valign="top" bgcolor="#171329">
+
+      <h2 align="center">🟣 GK-Labs</h2>
+      <p align="center">
+        <strong>FOUNDER & PROJECT LEAD</strong>
+      </p>
+      <hr>
+
+      <p align="center">
+        Building projects, leading development,
+        and coordinating engineering efforts.
+      </p>
+
+      <h4>Responsibilities</h4>
+      <ul>
+        <li>Project leadership</li>
+        <li>Development planning</li>
+        <li>Team coordination</li>
+        <li>Software engineering</li>
+      </ul>
+
+      <hr>
+
+      <h4 align="center">TEAM OVERVIEW</h4>
+      <table width="100%">
+        <tr>
+          <td align="center">
+            <strong>Organization</strong><br>
+            GK-Labs
+          </td>
+          <td align="center">
+            <strong>Position</strong><br>
+            Founder
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <strong>Focus</strong><br>
+            Development
+          </td>
+          <td align="center">
+            <strong>Role</strong><br>
+            Leadership
+          </td>
+        </tr>
+      </table>
+
+      <p align="center">
+        <a href="https://github.com/gk-research-group">
+          <strong>VIEW ORGANIZATION →</strong>
+        </a>
+      </p>
+
+    </td>
+
+    <!-- OREON CARD -->
+    <td width="50%" valign="top" bgcolor="#10202F">
+
+      <h2 align="center">🔵 Oreon</h2>
+      <p align="center">
+        <strong>DEVELOPER</strong>
+      </p>
+      <hr>
+
+      <p align="center">
+        Contributing to software projects,
+        developing features, and collaborating
+        with other developers.
+      </p>
+
+      <h4>Responsibilities</h4>
+      <ul>
+        <li>Software development</li>
+        <li>Feature implementation</li>
+        <li>Code contributions</li>
+        <li>Engineering collaboration</li>
+      </ul>
+
+      <hr>
+
+      <h4 align="center">TEAM OVERVIEW</h4>
+      <table width="100%">
+        <tr>
+          <td align="center">
+            <strong>Organization</strong><br>
+            Oreon
+          </td>
+          <td align="center">
+            <strong>Position</strong><br>
+            Developer
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <strong>Focus</strong><br>
+            Development
+          </td>
+          <td align="center">
+            <strong>Role</strong><br>
+            Engineering
+          </td>
+        </tr>
+      </table>
+
+      <p align="center">
+        <a href="https://github.com/oreonhq">
+          <strong>VIEW ORGANIZATION →</strong>
+        </a>
+      </p>
+
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <sub>Building things. Leading teams. Writing code.</sub>
+</p>
+
 
 🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** · gk-labs, go poke the prism
 
