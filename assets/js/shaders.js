@@ -92,12 +92,13 @@ function start() {
   // ---------- each piece ----------
 
   const specs = {
-    // footer sign-off: liquid metal "gk" (the liquid logo idea), cmyk halftone in print
+    // footer sign-off: liquid metal "gk-labs" (the liquid logo idea), cmyk halftone in print
     mark: {
       async build(host, t) {
         await fontsReady;
         const box = host.getBoundingClientRect();
-        const size = Math.min(box.height * 0.82, box.width * 0.5);
+        const size = Math.min(box.height * 0.7, box.width / 3.8);
+        const base = box.height * 0.5 + size * 0.28;
         if (t === 'print') {
           // three plates, slightly out of register, then screened into dots
           const k = 2;
@@ -112,7 +113,7 @@ function start() {
           const off = size * 0.035 * k;
           [['#00b4ff', -off, -off * 0.4], ['#fc519f', 0, 0], ['#ffd800', off, off * 0.4]].forEach(([c, dx, dy]) => {
             x.fillStyle = c;
-            x.fillText('gk', cv.width / 2 + dx, box.height * 0.74 * k + dy);
+            x.fillText('gk-labs', cv.width / 2 + dx, base * k + dy);
           });
           return {
             key: 'mark-halftone',
@@ -128,7 +129,7 @@ function start() {
             }, sizing({ fit: 'cover' }))
           };
         }
-        const cv = wordCanvas(box, 'gk', { size: size, x: box.width / 2, y: box.height * 0.74, align: 'center', fill: '#000000', letterSpacing: -size * 0.04 });
+        const cv = wordCanvas(box, 'gk-labs', { size: size, x: box.width / 2, y: base, align: 'center', fill: '#000000', letterSpacing: -size * 0.04 });
         if (!host._metal) host._metal = load(URL.createObjectURL((await toProcessedLiquidMetal(cv.toDataURL('image/png'))).pngBlob));
         const warm = t === 'thermal';
         return {

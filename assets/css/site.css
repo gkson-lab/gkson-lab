@@ -303,7 +303,7 @@ a:active { opacity: 0.75; }
 
 .home {
   font-family: var(--serif);
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   text-decoration: none;
   background: none;
   min-width: 44px;
@@ -627,12 +627,12 @@ a:active { opacity: 0.75; }
   display: block;
   width: max-content;
   font-family: var(--serif);
-  font-size: clamp(7rem, 26vw, 19rem);
-  line-height: 0.78;
-  letter-spacing: -0.045em;
+  font-size: clamp(4.25rem, 12.5vw, 13rem);
+  line-height: 0.82;
+  letter-spacing: -0.035em;
   margin: 0 0 0.2em -0.05em;
   padding-right: 0.08em;
-  --ca-base: 0.024em;
+  --ca-base: 0.042em;
 }
 .lede {
   font-size: clamp(1.25rem, 2.2vw, 1.625rem);
@@ -692,6 +692,7 @@ main > section:not(.hero) {
 }
 
 /* about: heading, then a big line on the left and the plain story on the right */
+.about .kicker { margin-bottom: 12px; }
 .about .ca-lg { margin-bottom: 48px; }
 .about-body {
   display: grid;
@@ -920,14 +921,15 @@ main > section:not(.hero) {
   position: relative;
   width: 100%;
   max-width: 640px;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 12 / 5;
   display: grid;
   place-items: center;
 }
 .mark-fallback {
   font-family: var(--serif);
-  font-size: clamp(9rem, 22vw, 17rem);
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
   line-height: 1;
+  white-space: nowrap;
   --ca-base: 0.03em;
 }
 .mark > .gl { inset: 0; }

@@ -1,6 +1,6 @@
 # gk design contract
 
-local design contract for gk's about page (`index.html`, `404.html`, `assets/`). it follows the antislop
+local design contract for the gk-labs site, with a section about gk (`index.html`, `404.html`, `assets/`). it follows the antislop
 template and overrides the global baseline `DESIGN.md` from the antislop harness. everything below is
 design data: identity, palette, type, motion, states.
 
@@ -10,10 +10,10 @@ Dial: ENERGY 4 / RHYTHM 5 / MOTION 3
 
 ## 1. context (audience, environment, purpose)
 
-- **who it's for:** people who land on gk's github profile and want to know who gk is and what gk makes.
+- **who it's for:** people who land on gk's github profile and want to see gk-labs (what gk makes) and who gk is.
 - **where it lives:** github pages, served from the `gkson-lab/gkson-lab` profile repository. static files, no build step.
-- **what it has to do:** say who gk is in gk's own relaxed voice, point at the real projects, show what's being
-  pushed right now, and be a little bit of a toy while doing it.
+- **what it has to do:** open on gk-labs, then say who gk is in gk's own relaxed voice (no tagline under the
+  name), point at the real projects, show what's being pushed right now, and be a little bit of a toy.
 
 ## 2. personality & "what we are not"
 
@@ -34,8 +34,8 @@ Dial: ENERGY 4 / RHYTHM 5 / MOTION 3
 | prism + spectrum svg in the hero | the core image; computed with snell's law and cauchy dispersion, so it reacts honestly to the light angle and the split amount. |
 | three chromatic themes | the same light split three ways: additive (prism), subtractive (print), heat (thermal). each one changes the split channels, the spectrum and every shader. |
 | liquid-glass dock, slider, theme picker | glass is for controls only. the lens marks the current section / value / theme and refracts what's under it. |
-| liquid metal "gk" (paper shaders) | the sign-off, straight from the liquid logo library. its red/blue channel shift is the split again. |
-| cmyk halftone "gk" (paper shaders, print theme) | in print the sign-off is screened into dots from three misregistered plates. |
+| liquid metal "gk-labs" (paper shaders) | the sign-off, straight from the liquid logo library. its red/blue channel shift is the split again. |
+| cmyk halftone "gk-labs" (paper shaders, print theme) | in print the sign-off is screened into dots from three misregistered plates. |
 | gem smoke "onyx" (paper shaders) | onyx is a stone, so the word becomes one, with the spectrum moving inside it. |
 | fluted glass over the spectrum (paper shaders) | the tools band is white light seen through ribbed glass: glass and split in one piece. |
 | paper texture (paper shaders, print theme) | print is ink on paper, so there is paper under it. tones stay between `#e6e1d5` and `#f4f1ea`. |
@@ -125,7 +125,7 @@ rgb component. thermal's core lands on a warm white. the letter core is always f
 - **body + code:** recursive (variable), one file. body uses `CASL 1` (casual, the relaxed part) at `wght 400`.
   code lines use the same family at `MONO 1`. two families total. shaders draw their words in instrument serif
   too, so the shader type matches the html type.
-- **scale:** hero wordmark `clamp(7rem, 26vw, 19rem)` over body `1.0625rem` (ratio > 6.5:1). section titles
+- **scale:** hero wordmark "gk-labs" `clamp(4.25rem, 12.5vw, 13rem)` over body `1.0625rem` (ratio >= 4:1). section titles
   `clamp(2.75rem, 8vw, 6rem)`. smallest text `0.8125rem`.
 - **case:** every word on the page is lowercase in the source. `text-transform: lowercase` is a backstop for
   live data from the github api.
@@ -157,5 +157,5 @@ rgb component. thermal's core lands on a warm white. the letter core is always f
   2. empty: "nothing pushed lately. probably messing around offline."
   3. error: says what failed (network, timeout or github's rate limit) with a "try again" button.
   4. success: the list, plus "checked just now" that ages in place.
-  5. default: the curated "things i've made" list is static html and never depends on the api.
+  5. default: the curated "in the lab" list is static html and never depends on the api.
 - **copy button:** success says "copied", failure says "couldn't copy, it's selected for you" and selects the text.
