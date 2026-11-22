@@ -1,7 +1,11 @@
 
 ## how did we get here? 👋
 
-I'm **gk** a cool person who just works on genuinely anything
+i'm **gk**, just making stuff and seeing what sticks.
+
+<a href="https://gkson-lab.github.io/gkson-lab/"><img src="assets/readme/site-preview.jpg" alt="gk's site: a big lowercase gk next to a glass prism splitting a beam of light into a spectrum" width="100%"></a>
+
+🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** · my site, go poke the prism
 
 - helping with Oreon and Oreon security over there ➡️
 - making useful or useless apps and tools
