@@ -128,9 +128,7 @@ i'm **gk**, and this is **gk-labs**.
   </tr>
 </table>
 
-<p align="center">
-  <sub>Building things. Leading teams. Writing code.</sub>
-</p>
+
 
 
 🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** · gk-labs, go poke the prism
@@ -160,3 +158,17 @@ i'm **gk**, and this is **gk-labs**.
 
 ## big card
 ![GitHub Stats](https://ghstats.dev/api/card?username=gkson-lab&theme=tokyonight&show_icons=true)
+
+
+<h2 align="center">HELLO FROM GK-LABS</h2>
+<table>
+<tr>
+<td bgcolor="#171329">
+<strong>Founder & Project Lead</strong>
+</td>
+<td bgcolor="#10202F">
+<strong>Oreon Developer</strong>
+</td>
+</tr>
+</table>
+
