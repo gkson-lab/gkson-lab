@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>gk</title>
+  <meta name="description" content="gk: a cool person who just works on genuinely anything. apps, tools, an open source ai called onyx, and some linux security.">
+  <meta name="author" content="gk">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://gkson-lab.github.io/gkson-lab/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="gk">
+  <meta property="og:description" content="a cool person who just works on genuinely anything.">
+  <meta property="og:url" content="https://gkson-lab.github.io/gkson-lab/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/recursive-var.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var root = document.documentElement, theme = null, split = null;
+      try { theme = localStorage.getItem('gk-theme'); split = localStorage.getItem('gk-split'); } catch (e) {}
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      root.setAttribute('data-theme', theme);
+      if (split !== null && !isNaN(parseFloat(split))) root.style.setProperty('--disp', String(Math.min(2, Math.max(0, parseFloat(split)))));
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">skip to the content</a>
+
+  <header class="top">
+    <a class="home ca ca-sm" href="#top" data-text="gk" aria-label="gk, back to the top">gk</a>
+
+    <div class="controls">
+      <div class="split">
+        <label class="split-label" for="split">split</label>
+        <div class="range">
+          <div class="range-track" aria-hidden="true"><span class="range-fill"></span></div>
+          <span class="lens range-lens" aria-hidden="true"></span>
+          <input id="split" type="range" min="0" max="2" step="0.05" value="1" aria-describedby="split-help">
+        </div>
+        <span id="split-help" class="sr">how much the light splits, across the whole page. zero turns it off.</span>
+      </div>
+
+      <button class="switch" type="button" role="switch" aria-checked="true" aria-label="dark mode">
+        <svg class="switch-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <span class="switch-track" aria-hidden="true"><span class="lens switch-lens"></span></span>
+        <svg class="switch-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="dock" aria-label="sections">
+    <span class="lens dock-lens" aria-hidden="true"></span>
+    <a href="#about">about</a>
+    <a href="#made">made</a>
+    <a href="#now">now</a>
+    <a href="#tools">tools</a>
+    <a href="#hi">hi</a>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <svg class="prism" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="glass-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" class="glass-stop-a"/>
+            <stop offset="1" class="glass-stop-b"/>
+          </linearGradient>
+          <filter id="bloom" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+        </defs>
+        <g class="beam-glow" filter="url(#bloom)">
+          <path class="beam-in-glow"/>
+          <g class="fan-glow"></g>
+        </g>
+        <path class="beam-in"/>
+        <path class="beam-reflect"/>
+        <path class="beam-inside"/>
+        <g class="fan"></g>
+        <path class="prism-body"/>
+        <g class="prism-edges">
+          <path class="edge edge-1"/>
+          <path class="edge edge-2"/>
+          <path class="edge edge-3"/>
+        </g>
+        <path class="prism-inner"/>
+      </svg>
+
+      <div class="hero-copy">
+        <p class="hello">hi, i'm</p>
+        <h1 id="hero-title" class="ca ca-xl" data-text="gk">gk</h1>
+        <p class="lede">a cool person who just works on genuinely anything.</p>
+        <p class="meta">
+          <span>apps</span><span class="dot" aria-hidden="true">·</span><span>tools</span><span class="dot" aria-hidden="true">·</span><span>an open source ai</span><span class="dot" aria-hidden="true">·</span><span>linux security</span><span class="dot" aria-hidden="true">·</span><span>messing around</span>
+        </p>
+        <div class="cmd">
+          <code id="cmd-text">git clone https://github.com/gkson-lab/onyx</code>
+          <button class="pill copy" type="button" aria-describedby="cmd-text">copy</button>
+          <span class="copy-status" role="status" aria-live="polite"></span>
+        </div>
+        <p class="hint">
+          <span class="hint-mouse">move your cursor around. the light follows it.</span>
+          <span class="hint-touch">drag across the prism to tilt the light.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <h2 id="about-title" class="ca ca-lg" data-text="how did we get here?">how did we get here?</h2>
+      <div class="about-body">
+        <p class="say">honestly, by saying yes to whatever looked interesting that week.</p>
+        <div class="about-text">
+          <p>i'm gk. i make things that are useful, things that are useless, and a lot of things that start as one and turn into the other.</p>
+          <p>right now that means an open source ai called onyx, a 150 tool app it lives inside, a task manager that tells you more than it probably should, and helping out on oreon and its security side.</p>
+          <p>most of it is javascript, some of it is python, and all of it gets written on windows.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="made" id="made" aria-labelledby="made-title">
+      <h2 id="made-title" class="ca ca-lg" data-text="things i've made">things i've made</h2>
+
+      <div class="made-grid">
+        <article class="focal" aria-labelledby="onyx-title">
+          <p class="kicker">the big one</p>
+          <h3 id="onyx-title" class="ca ca-focal" data-text="onyx">onyx</h3>
+          <p class="focal-text">an open source ai model. onyx 1 is a small agent, omniagent, that runs inside the bigger space of omnitool. the first of its kind, if you ask me.</p>
+          <p class="tags"><span>javascript</span><span class="dot" aria-hidden="true">·</span><span>open source</span><span class="dot" aria-hidden="true">·</span><span>still growing</span></p>
+          <p class="links"><a href="https://github.com/gkson-lab/onyx">see the code on github</a></p>
+        </article>
+
+        <ul class="rows" aria-label="more projects">
+          <li class="row">
+            <h3 class="ca ca-row" data-text="omnitool">omnitool</h3>
+            <p>150 developer and everyday tools in one window. a windows desktop app with the labscode editor built in, a web edition that runs straight from index.html, and omni agent.</p>
+            <p class="row-foot"><span class="lang">javascript</span><a href="https://github.com/gkson-lab/omnitool">code</a></p>
+          </li>
+          <li class="row">
+            <h3 class="ca ca-row" data-text="gk control center">gk control center</h3>
+            <p>task manager, but expanded. a lot more detail on networking, plus some hidden secrets. updated often.</p>
+            <p class="row-foot"><span class="lang">typescript</span><a href="https://github.com/gkson-lab/gk-control-center">code</a></p>
+          </li>
+          <li class="row">
+            <h3 class="ca ca-row" data-text="windsim">windsim</h3>
+            <p>a 3d wind tunnel simulation, with different custom objects and other parts to put in the wind.</p>
+            <p class="row-foot"><span class="lang">javascript</span><a href="https://github.com/gkson-lab/windsim">code</a></p>
+          </li>
+          <li class="row">
+            <h3 class="ca ca-row" data-text="longshot10">longshot10</h3>
+            <p>a ten digit random number badge game, with the exact odds of whatever you roll.</p>
+            <p class="row-foot"><span class="lang">javascript</span><a href="https://gkson-lab.github.io/longshot10/">play it</a><a href="https://github.com/gkson-lab/longshot10">code</a></p>
+          </li>
+          <li class="row">
+            <h3 class="ca ca-row" data-text="f1 live data tracker">f1 live data tracker</h3>
+            <p>follow a live formula one race before the broadcast catches up: flags, overtakes, penalties and more. partly ai generated, and it says so.</p>
+            <p class="row-foot"><span class="lang">html</span><a href="https://github.com/gkson-lab/formula-one-live-data-tracker">code</a></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="now" id="now" aria-labelledby="now-title">
+      <h2 id="now-title" class="ca ca-lg" data-text="right now">right now</h2>
+      <div class="now-grid">
+        <div class="now-say">
+          <p class="say">helping with oreon and oreon security, building onyx, and messing around.</p>
+          <p>for oreon that means kickstart files and rpm spec files, the plumbing a linux distro runs on. <a href="https://github.com/oreonhq">oreon on github</a></p>
+        </div>
+
+        <div class="feed" aria-labelledby="feed-title">
+          <h3 id="feed-title" class="feed-title">lately on github</h3>
+          <div class="feed-body" aria-live="polite">
+            <noscript><p class="feed-msg">this part loads live from github. <a href="https://github.com/gkson-lab?tab=repositories">see the repos there</a></p></noscript>
+          </div>
+          <p class="feed-note">pulled live from github's public api, newest push first.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools" id="tools" aria-labelledby="tools-title">
+      <h2 id="tools-title" class="ca ca-lg" data-text="what i use">what i use</h2>
+      <p class="say tools-say">white light, split into the bits it's made of.</p>
+      <div class="spectrum">
+        <ul class="bands">
+          <li style="--nm: 415; --c: #8a5cff;"><span class="ca ca-band" data-text="windows">windows</span></li>
+          <li style="--nm: 465; --c: #3d7bff;"><span class="ca ca-band" data-text="python">python</span></li>
+          <li style="--nm: 500; --c: #19d3e0;"><span class="ca ca-band" data-text="html">html</span></li>
+          <li style="--nm: 540; --c: #3ce07a;"><span class="ca ca-band" data-text="css">css</span></li>
+          <li style="--nm: 580; --c: #ffd23d;"><span class="ca ca-band" data-text="javascript">javascript</span></li>
+          <li style="--nm: 640; --c: #ff4a4a;"><span class="ca ca-band" data-text="typescript">typescript</span></li>
+        </ul>
+        <div class="band" aria-hidden="true"></div>
+      </div>
+      <p class="tools-foot">plus whatever the project needs that week.</p>
+    </section>
+  </main>
+
+  <footer class="hi" id="hi" aria-labelledby="hi-title">
+    <div class="hi-grid">
+      <svg class="metal" viewBox="0 0 640 340" role="img" aria-label="gk">
+        <defs>
+          <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" class="chrome-1"/>
+            <stop offset="0.38" class="chrome-2"/>
+            <stop offset="0.5" class="chrome-3"/>
+            <stop offset="0.62" class="chrome-4"/>
+            <stop offset="1" class="chrome-5"/>
+          </linearGradient>
+          <filter id="liquid" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+            <feTurbulence class="liquid-noise" type="fractalNoise" baseFrequency="0.009 0.022" numOctaves="2" seed="7" result="noise"/>
+            <feDisplacementMap class="liquid-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+            <feGaussianBlur in="warp" stdDeviation="3" result="soft"/>
+            <feSpecularLighting in="soft" surfaceScale="6" specularConstant="1.1" specularExponent="26" lighting-color="#ffffff" result="spec">
+              <fePointLight class="liquid-light" x="180" y="40" z="220"/>
+            </feSpecularLighting>
+            <feComposite in="spec" in2="warp" operator="in" result="specIn"/>
+            <feComposite in="warp" in2="specIn" operator="arithmetic" k1="0" k2="1" k3="0.85" k4="0"/>
+          </filter>
+        </defs>
+        <g class="metal-split" aria-hidden="true">
+          <text class="metal-ghost metal-ghost-1" x="50%" y="74%" text-anchor="middle">gk</text>
+          <text class="metal-ghost metal-ghost-3" x="50%" y="74%" text-anchor="middle">gk</text>
+        </g>
+        <text class="metal-text" x="50%" y="74%" text-anchor="middle" filter="url(#liquid)" aria-hidden="true">gk</text>
+      </svg>
+
+      <div class="hi-copy">
+        <h2 id="hi-title" class="ca ca-lg" data-text="say hi">say hi</h2>
+        <p>github is the best way to reach me. open an issue, star something, fork something, or just poke around.</p>
+        <p class="hi-link"><a class="big-link" href="https://github.com/gkson-lab">github.com/gkson-lab</a></p>
+        <p class="credits">made by gk, 2026. set in instrument serif and recursive. <a href="https://github.com/gkson-lab/gkson-lab">this site's source</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs id="lens-defs"></defs></svg>
+</body>
+</html>
