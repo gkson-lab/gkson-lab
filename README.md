@@ -20,3 +20,11 @@ i'm **gk**, and this is **gk-labs**.
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+
+## Stats & Such
+![PRs](https://ghstats.dev/api/mini?username=gkson-lab&metric=prs&style=for-the-badge)
+![Commits](https://ghstats.dev/api/mini?username=gkson-lab&metric=commits&style=for-the-badge)
+![Stars](https://ghstats.dev/api/mini?username=gkson-lab&metric=stars&style=for-the-badge)
+![Issues](https://ghstats.dev/api/mini?username=gkson-lab&metric=issues&style=for-the-badge)
+![Followers](https://ghstats.dev/api/mini?username=gkson-lab&metric=followers&style=for-the-badge)
+![Repositories](https://ghstats.dev/api/mini?username=gkson-lab&metric=repos&style=for-the-badge)
