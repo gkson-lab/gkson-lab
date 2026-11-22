@@ -28,3 +28,7 @@ i'm **gk**, and this is **gk-labs**.
 ![Issues](https://ghstats.dev/api/mini?username=gkson-lab&metric=issues&style=for-the-badge)
 ![Followers](https://ghstats.dev/api/mini?username=gkson-lab&metric=followers&style=for-the-badge)
 ![Repositories](https://ghstats.dev/api/mini?username=gkson-lab&metric=repos&style=for-the-badge)
+
+
+## big card
+![GitHub Stats](https://ghstats.dev/api/card?username=gkson-lab&theme=tokyonight&show_icons=true)
