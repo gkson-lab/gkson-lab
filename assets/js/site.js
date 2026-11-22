@@ -121,13 +121,24 @@
   var prism = (function () {
     var svg = $('.prism');
     var hero = $('.hero');
-    if (!svg || !hero) return { aim: function () {}, draw: function () {} };
+    if (!svg || !hero) return { aim: function () {}, draw: function () {}, paint: function () {} };
 
     var NS = 'http://www.w3.org/2000/svg';
     var N = 34;
     var NM = [];
     for (var i = 0; i < N; i++) NM.push(400 + (300 * i) / (N - 1));
-    var COLORS = NM.map(wavelengthToRgb);
+    var THERMAL = [[42, 15, 92], [90, 31, 209], [179, 18, 122], [255, 45, 85], [255, 106, 26], [255, 176, 0], [255, 241, 168]];
+    function heat(t) {
+      var x = clamp(t, 0, 1) * (THERMAL.length - 1), i = Math.min(THERMAL.length - 2, Math.floor(x)), f = x - i;
+      var a = THERMAL[i], b = THERMAL[i + 1];
+      return 'rgb(' + Math.round(lerp(a[0], b[0], f)) + ' ' + Math.round(lerp(a[1], b[1], f)) + ' ' + Math.round(lerp(a[2], b[2], f)) + ')';
+    }
+    function palette() {
+      return root.getAttribute('data-theme') === 'thermal'
+        ? NM.map(function (nm) { return heat(0.12 + 0.88 * (nm - 400) / 300); })
+        : NM.map(wavelengthToRgb);
+    }
+    var COLORS = palette();
     var INV = function (nm) { var l = nm / 1000; return 1 / (l * l); };
     var KMIN = INV(700), KMAX = INV(400);
 
@@ -142,12 +153,16 @@
       return out;
     }
     var bands = mk(el.fan, N - 1), rays = mk(el.fan, N), glowBands = mk(el.fanGlow, N - 1);
-    bands.forEach(function (p, k) { p.setAttribute('fill', COLORS[k]); p.setAttribute('fill-opacity', '0.5'); });
-    glowBands.forEach(function (p, k) { p.setAttribute('fill', COLORS[k]); });
-    rays.forEach(function (p, k) {
-      p.setAttribute('stroke', COLORS[k]); p.setAttribute('stroke-width', '2.4');
-      p.setAttribute('fill', 'none'); p.setAttribute('stroke-linecap', 'round');
-    });
+    function paint() {
+      COLORS = palette();
+      bands.forEach(function (p, k) { p.setAttribute('fill', COLORS[k]); p.setAttribute('fill-opacity', '0.5'); });
+      glowBands.forEach(function (p, k) { p.setAttribute('fill', COLORS[k]); });
+      rays.forEach(function (p, k) {
+        p.setAttribute('stroke', COLORS[k]); p.setAttribute('stroke-width', '2.4');
+        p.setAttribute('fill', 'none'); p.setAttribute('stroke-linecap', 'round');
+      });
+    }
+    paint();
 
     var W = 0, H = 0;
     var aimT = { ang: 0.5, hit: 0.5 }, aimC = { ang: 0.5, hit: 0.5 };
@@ -183,10 +198,12 @@
       if (mobile) {
         // keep the prism in the band above the words so the beam never strikes through them
         var copy = $('.hero-copy', hero);
-        var band = (copy ? copy.offsetTop : H * 0.45) - 76 - 28;
+        var head = $('.top');
+        var top = (head ? head.offsetHeight : 76) + 8;
+        var band = (copy ? copy.offsetTop : H * 0.45) - top - 28;
         var hh = clamp(Math.min(band, W * 0.5), 120, 300);
         s = hh / 0.866;
-        cx = W * 0.6; cy = 76 + hh * 0.62; rot = 16;
+        cx = W * 0.6; cy = top + hh * 0.62; rot = 16;
       } else {
         s = Math.min(H * 0.64, W * 0.34, 600);
         cx = W * 0.7; cy = H * 0.47; rot = 16;
@@ -306,7 +323,7 @@
       aimT.hit = clamp(nx, 0, 1);
       wake();
     }
-    return { aim: aim, draw: draw };
+    return { aim: aim, draw: draw, paint: paint };
   })();
 
   /* ---------------------------------------------------------------
@@ -396,10 +413,10 @@
   })();
 
   function buildLenses() {
-    var d = $('.dock-lens'), r = $('.range-lens'), s = $('.switch-lens');
+    var d = $('.dock-lens'), r = $('.range-lens'), t = $('.theme-lens');
     if (d) lens.build('lens-dock', d.offsetWidth, d.offsetHeight, 26);
     if (r) lens.build('lens-range', r.offsetWidth, r.offsetHeight, 22);
-    if (s) lens.build('lens-switch', s.offsetWidth, s.offsetHeight, 18);
+    if (t) lens.build('lens-theme', t.offsetWidth, t.offsetHeight, 22);
   }
 
   /* ---------------------------------------------------------------
@@ -538,24 +555,48 @@
   })();
 
   /* ---------------------------------------------------------------
-     theme switch
+     chromatic themes: prism (rgb), print (cmy), thermal (heat)
      --------------------------------------------------------------- */
-  (function themeSwitch() {
-    var btn = $('.switch');
-    if (!btn) return;
+  (function themes() {
+    var radios = $$('.themes input[name="theme"]');
+    var lensEl = $('.theme-lens');
+    var nameEl = $('.theme-name');
     var metas = $$('meta[name="theme-color"]');
-    function sync() {
-      var dark = root.getAttribute('data-theme') !== 'light';
-      btn.setAttribute('aria-checked', dark ? 'true' : 'false');
+    var BG = { prism: '#0b0b0d', print: '#f4f1ea', thermal: '#0e0a09' };
+    if (!radios.length) return;
+    function show(name) {
+      var i = 0;
+      radios.forEach(function (r, k) { r.checked = r.value === name; if (r.checked) i = k; });
+      if (lensEl) lensEl.style.setProperty('--tx', (i * 44) + 'px');
+      if (nameEl) nameEl.textContent = name;
+      metas.forEach(function (m) { m.setAttribute('content', BG[name] || BG.prism); });
     }
-    sync();
+    show(root.getAttribute('data-theme') || 'prism');
+    radios.forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (!r.checked) return;
+        root.setAttribute('data-theme', r.value);
+        store.set('gk-theme', r.value);
+        show(r.value);
+        prism.paint();
+        document.dispatchEvent(new CustomEvent('gk:theme', { detail: r.value }));
+      });
+    });
+  })();
+
+  (function motionToggle() {
+    var btn = $('.motion');
+    if (!btn) return;
+    function set(paused, announce) {
+      root.setAttribute('data-motion', paused ? 'paused' : 'on');
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      if (announce) document.dispatchEvent(new CustomEvent('gk:motion', { detail: paused }));
+    }
+    set(store.get('gk-motion') === 'paused', false);
     btn.addEventListener('click', function () {
-      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      root.setAttribute('data-theme', next);
-      store.set('gk-theme', next);
-      var bg = next === 'light' ? '#f4f1ea' : '#0b0b0d';
-      metas.forEach(function (m) { m.setAttribute('content', bg); });
-      sync();
+      var paused = btn.getAttribute('aria-pressed') !== 'true';
+      store.set('gk-motion', paused ? 'paused' : 'on');
+      set(paused, true);
     });
   })();
 
@@ -730,47 +771,6 @@
     }
 
     load(false);
-  })();
-
-  /* ---------------------------------------------------------------
-     liquid metal mark: the pointer is a light over a chrome surface
-     --------------------------------------------------------------- */
-  (function metal() {
-    var svg = $('.metal');
-    if (!svg) return;
-    var warp = $('.liquid-disp', svg), noise = $('.liquid-noise', svg), pl = $('.liquid-light', svg);
-    var st = { lx: 180, ly: 40, tlx: 180, tly: 40, amp: 0, last: -1e9 };
-
-    steppers.push(function (now) {
-      var active = now - st.last < 450;
-      var target = active ? 16 : 0;
-      st.amp += (target - st.amp) * 0.08;
-      if (!active && st.amp < 0.05) st.amp = 0;
-      st.lx += (st.tlx - st.lx) * 0.14;
-      st.ly += (st.tly - st.ly) * 0.14;
-      pl.setAttribute('x', st.lx.toFixed(1));
-      pl.setAttribute('y', st.ly.toFixed(1));
-      warp.setAttribute('scale', st.amp.toFixed(2));
-      if (st.amp > 0.05) {
-        var t = now / 1000;
-        noise.setAttribute('baseFrequency', (0.009 + 0.0025 * Math.sin(t * 1.3)).toFixed(4) + ' ' + (0.022 + 0.004 * Math.cos(t * 0.9)).toFixed(4));
-      }
-      return active || st.amp > 0.05 || Math.abs(st.tlx - st.lx) > 0.5 || Math.abs(st.tly - st.ly) > 0.5;
-    });
-
-    function move(e) {
-      if (reduced) return;
-      var ctm = svg.getScreenCTM();
-      if (!ctm) return;
-      var pt = svg.createSVGPoint();
-      pt.x = e.clientX; pt.y = e.clientY;
-      var p = pt.matrixTransform(ctm.inverse());
-      st.tlx = p.x; st.tly = p.y - 60;
-      st.last = performance.now();
-      wake();
-    }
-    svg.addEventListener('pointermove', move, { passive: true });
-    svg.addEventListener('pointerdown', move, { passive: true });
   })();
 
   /* ---------------------------------------------------------------
