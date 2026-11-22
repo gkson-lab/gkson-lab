@@ -35,7 +35,7 @@ i'm **gk**, and this is **gk-labs**.
 <table>
 <tr>
 <td bgcolor="#171329">
-<strong>Founder & Project Lead</strong>
+<strong>Founder & Project Lead [gklabs]</strong>
 </td>
 <td bgcolor="#10202F">
 <strong>Oreon Developer</strong>
