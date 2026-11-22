@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #0b0b0d; }
+    @media (prefers-color-scheme: light) { .bg { fill: #f4f1ea; } .k { stroke: #141317; } }
+  </style>
+  <rect class="bg" width="64" height="64" rx="14"/>
+  <g fill="none" stroke-width="3.2" stroke-linejoin="round">
+    <path d="M31 12 L52 50 L10 50 Z" stroke="#ff3355" opacity="0.9"/>
+    <path d="M33 12 L54 50 L12 50 Z" stroke="#3366ff" opacity="0.9"/>
+    <path class="k" d="M32 12 L53 50 L11 50 Z" stroke="#f3f1ec"/>
+  </g>
+</svg>
