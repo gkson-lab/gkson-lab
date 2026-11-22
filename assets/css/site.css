@@ -61,7 +61,6 @@
   --muted: #a6a3ab;
   --line: #3a3a42;
   --edge: #7a7782;
-  --accent: #8fd3ff;
   --err: #ff8fa3;
   --skel: rgb(243 241 236 / 0.08);
 
@@ -70,10 +69,13 @@
   --ch-2: #33ff88;
   --ch-3: #3366ff;
   --ch-blend: screen;
-  --fr-1: rgb(255 51 85 / 0.62);
-  --fr-2: rgb(51 200 255 / 0.62);
-  --fr-line-1: rgb(255 51 85 / 0.35);
-  --fr-line-2: rgb(51 200 255 / 0.35);
+  --fr-1: rgb(255 196 92 / 0.28);
+  --fr-2: rgb(110 160 255 / 0.3);
+  --fr-line-1: rgb(255 196 92 / 0.18);
+  --fr-line-2: rgb(110 160 255 / 0.2);
+  --accent: #d7dde6;
+  --chrome: linear-gradient(180deg, #ffffff 0%, #e4e6ea 30%, #8d929c 47%, #6e727b 52%, #d9dce2 64%, #ffffff 82%, #c3c7ce 100%);
+  --oil: linear-gradient(100deg, #ffd23d 0%, #ff4a3d 22%, #2a1f5c 40%, #3d6bff 60%, #19e0b0 80%, #ffd23d 100%);
 
   --beam: #ffffff;
   --glass-stop-a: rgb(255 255 255 / 0.09);
@@ -285,6 +287,34 @@ a:active { opacity: 0.75; }
   color: var(--ch-3);
   transform: translate(calc(var(--ca-x) * var(--ca-amt)), calc(var(--ca-y) * var(--ca-amt)));
 }
+/* chrome (default): letters are polished metal, colour only as a thin oil-slick rim */
+:root[data-theme="prism"] .ca { color: transparent; }
+:root[data-theme="prism"] .ca::before,
+:root[data-theme="prism"] .ca::after {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  mix-blend-mode: normal;
+}
+:root[data-theme="prism"] .ca::before {
+  background-image: var(--oil);
+  opacity: 0.9;
+  transform: translate(calc(var(--ca-x) * var(--ca-amt) * -0.6), calc(var(--ca-y) * var(--ca-amt) * -0.6 + 0.014em));
+}
+:root[data-theme="prism"] .ca::after {
+  background-image: var(--chrome);
+  transform: none;
+}
+:root[data-theme="prism"] .ca a { color: transparent; }
+:root[data-theme="prism"] .beam-in { stroke: #e9ebef; }
+
+/* hero wordmark: the real liquid metal shader sits over the html heading */
+.hero-word { position: relative; }
+.hero-word > .gl { inset: -24% -6% -34% -4%; }
+.hero-word.gl-on .ca-xl { color: transparent; background: none; }
+.hero-word.gl-on .ca-xl::before,
+.hero-word.gl-on .ca-xl::after { display: none; }
+
 /* headings arrive a little out of focus and settle */
 .js .ca[data-focus]:not(.in) { --ca-focus: 3; }
 
@@ -438,7 +468,11 @@ a:active { opacity: 0.75; }
 .swatch i:nth-child(1) { left: 0; top: 2px; background: var(--s1); }
 .swatch i:nth-child(2) { left: 8px; top: 2px; background: var(--s2); }
 .swatch i:nth-child(3) { left: 4px; top: 8px; background: var(--s3); }
-.sw-prism { --s1: #ff3355; --s2: #33ff88; --s3: #3366ff; }
+.sw-prism { --s1: #ffffff; --s2: #8d929c; --s3: #e4e6ea; }
+.sw-prism { background: none; }
+.sw-prism i:nth-child(1) { background: linear-gradient(180deg, #fff, #6e727b 55%, #fff); }
+.sw-prism i:nth-child(2) { background: linear-gradient(180deg, #e4e6ea, #4a4d55 50%, #d9dce2); }
+.sw-prism i:nth-child(3) { background: var(--oil, linear-gradient(100deg, #ffd23d, #ff4a3d, #3d6bff)); }
 .sw-print { --s1: #00c8eb; --s2: #f0008c; --s3: #ffcd00; --sw-blend: multiply; }
 .sw-thermal { --s1: #ff1f5a; --s2: #ffe14d; --s3: #6b4dff; }
 .sw-print i { box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.1); }

@@ -24,7 +24,7 @@
       if (theme === 'dark') theme = 'prism';
       if (theme === 'light') theme = 'print';
       if (theme !== 'prism' && theme !== 'print' && theme !== 'thermal') {
-        theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'print' : 'prism';
+        theme = 'prism';
       }
       root.setAttribute('data-theme', theme);
       if (split !== null && !isNaN(parseFloat(split))) root.style.setProperty('--disp', String(Math.min(2, Math.max(0, parseFloat(split)))));
@@ -57,10 +57,10 @@
         <legend class="sr">chromatic theme</legend>
         <div class="themes-row">
           <span class="lens theme-lens" aria-hidden="true"></span>
-          <label class="theme-opt" title="prism">
+          <label class="theme-opt" title="chrome">
             <input type="radio" name="theme" value="prism">
             <span class="swatch sw-prism" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="sr">prism: rgb light on black</span>
+            <span class="sr">chrome: liquid metal on black</span>
           </label>
           <label class="theme-opt" title="print">
             <input type="radio" name="theme" value="print">
@@ -73,7 +73,7 @@
             <span class="sr">thermal: the page through an infrared camera</span>
           </label>
         </div>
-        <span class="theme-name" aria-hidden="true">prism</span>
+        <span class="theme-name" aria-hidden="true">chrome</span>
       </fieldset>
     </div>
 
@@ -123,7 +123,10 @@
 
       <div class="hero-copy">
         <p class="hello">this is</p>
-        <h1 id="hero-title" class="ca ca-xl" data-text="gk-labs">gk-labs</h1>
+        <div class="hero-word" data-shader="hero">
+          <h1 id="hero-title" class="ca ca-xl" data-text="gk-labs">gk-labs</h1>
+          <div class="gl" aria-hidden="true"></div>
+        </div>
         <p class="meta">
           <span>apps</span><span class="dot" aria-hidden="true">·</span><span>tools</span><span class="dot" aria-hidden="true">·</span><span>an open source ai</span><span class="dot" aria-hidden="true">·</span><span>linux security</span><span class="dot" aria-hidden="true">·</span><span>messing around</span>
         </p>
