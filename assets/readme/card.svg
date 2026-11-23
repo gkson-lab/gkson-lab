@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="210" viewBox="0 0 720 210" role="img" aria-label="gk: founder &amp; project lead · gk-labs, oreon developer; 116 commits, 91 prs, 20 merged, 5 issues, 12 repos, 10 stars, 0 followers">
+<defs>
+<linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#9aa0aa"/><stop offset=".55" stop-color="#6e727b"/><stop offset="1" stop-color="#f1f2f4"/></linearGradient>
+<linearGradient id="oil" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd23d"/><stop offset=".3" stop-color="#ff4a3d"/><stop offset=".6" stop-color="#3d6bff"/><stop offset="1" stop-color="#19e0b0"/></linearGradient>
+</defs>
+<style>
+text{font-family:'Iowan Old Style',Georgia,serif}
+.t{font-size:40px;fill:url(#chrome)}
+.o{font-size:40px;fill:url(#oil)}
+.r{font:15px ui-sans-serif,system-ui,sans-serif;fill:#c9ccd3}
+.v{font-size:26px;fill:url(#chrome);text-anchor:middle}
+.l{font:12px ui-sans-serif,system-ui,sans-serif;fill:#8d929c;text-anchor:middle}
+</style>
+<rect width="720" height="210" rx="14" fill="#0b0b0d"/>
+<rect x=".5" y=".5" width="719" height="209" rx="14" fill="none" stroke="#2a2a30"/>
+<text x="31" y="54" class="o" opacity=".8">gk</text>
+<text x="32" y="52" class="t">gk</text>
+<text x="32" y="88" class="r">founder &amp; project lead · gk-labs</text><text x="32" y="114" class="r">oreon developer</text>
+<rect x="32" y="118" width="656" height="1" fill="url(#oil)" opacity=".55"/>
+<text x="79" y="150" class="v">116</text><text x="79" y="174" class="l">commits</text><text x="173" y="150" class="v">91</text><text x="173" y="174" class="l">prs</text><text x="266" y="150" class="v">20</text><text x="266" y="174" class="l">merged</text><text x="360" y="150" class="v">5</text><text x="360" y="174" class="l">issues</text><text x="454" y="150" class="v">12</text><text x="454" y="174" class="l">repos</text><text x="547" y="150" class="v">10</text><text x="547" y="174" class="l">stars</text><text x="641" y="150" class="v">0</text><text x="641" y="174" class="l">followers</text>
+</svg>
