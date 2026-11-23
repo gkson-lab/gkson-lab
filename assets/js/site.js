@@ -56,7 +56,8 @@
   });
 
   var pointer = { nx: 0.5, ny: 0.42, seen: false };
-  window.addEventListener('pointermove', function (e) {
+  // the light no longer follows the cursor (it made chrome repaint and flash)
+  false && window.addEventListener('pointermove', function (e) {
     if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
     pointer.nx = e.clientX / window.innerWidth;
     pointer.ny = e.clientY / window.innerHeight;
@@ -311,7 +312,7 @@
     resize();
 
     // touch: drag across the hero to tilt the light
-    hero.addEventListener('pointermove', function (e) {
+    false && hero.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'touch' || reduced) return;
       var r = hero.getBoundingClientRect();
       aim((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
