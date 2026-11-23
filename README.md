@@ -3,6 +3,7 @@
 
 i'm **gk**, and this is **gk-labs**.
 
+<a href="https://gkson-lab.github.io/gkson-lab/"><img src="assets/readme/site-preview.jpg" alt="the gk-labs site: the word gk-labs in chrome next to a glass prism splitting light" width="100%"></a>
 
 🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** · gk-labs, go poke the prism
 
@@ -22,26 +23,11 @@ i'm **gk**, and this is **gk-labs**.
 
 
 ## Stats & Such
-![PRs](https://ghstats.dev/api/mini?username=gkson-lab&metric=prs&style=for-the-badge)
-![Commits](https://ghstats.dev/api/mini?username=gkson-lab&metric=commits&style=for-the-badge)
-![Stars](https://ghstats.dev/api/mini?username=gkson-lab&metric=stars&style=for-the-badge)
-![Issues](https://ghstats.dev/api/mini?username=gkson-lab&metric=issues&style=for-the-badge)
-![Followers](https://ghstats.dev/api/mini?username=gkson-lab&metric=followers&style=for-the-badge)
-![Repositories](https://ghstats.dev/api/mini?username=gkson-lab&metric=repos&style=for-the-badge)
-![Merged PRs](https://img.shields.io/github/issues-search?query=author%3Agkson-lab%20is%3Apr%20is%3Amerged&label=merged%20PRs&style=flat&logo=github&color=8957e5)
 
+<img src="assets/readme/card.svg" alt="gk: founder and project lead at gk-labs, oreon developer, with github stats" width="100%">
 
-
-![GitHub Stats](https://ghstats.dev/api/card?username=gkson-lab&theme=tokyonight&show_icons=true)
-
-<table>
-<tr>
-<td bgcolor="#171329">
-<strong>Founder & Project Lead [gklabs]</strong>
-</td>
-<td bgcolor="#10202F">
-<strong>Oreon Developer</strong>
-</td>
-</tr>
-</table>
-
+![PRs](https://img.shields.io/github/issues-search?style=flat-square&labelColor=0b0b0d&color=2a2a30&logo=github&query=author%3Agkson-lab%20is%3Apr&label=PRs)
+![Merged PRs](https://img.shields.io/github/issues-search?style=flat-square&labelColor=0b0b0d&color=2a2a30&logo=github&query=author%3Agkson-lab%20is%3Apr%20is%3Amerged&label=merged%20PRs)
+![Issues](https://img.shields.io/github/issues-search?style=flat-square&labelColor=0b0b0d&color=2a2a30&logo=github&query=author%3Agkson-lab%20is%3Aissue&label=issues)
+![Stars](https://img.shields.io/github/stars/gkson-lab?style=flat-square&labelColor=0b0b0d&color=2a2a30&logo=github&label=stars)
+![Followers](https://img.shields.io/github/followers/gkson-lab?style=flat-square&labelColor=0b0b0d&color=2a2a30&logo=github&label=followers)
