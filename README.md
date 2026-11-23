@@ -20,3 +20,5 @@ i'm **gk**, and this is **gk-labs**.
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+
+![Merged PRs](https://img.shields.io/github/issues-search?query=author%3Agkson-lab%20is%3Apr%20is%3Amerged&label=merged%20PRs&style=flat&logo=github&color=8957e5)
