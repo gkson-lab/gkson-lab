@@ -1039,3 +1039,9 @@ main > section:not(.hero) {
   .js .ca[data-focus]:not(.in) { --ca-focus: 1; }
   .hint { display: none; }
 }
+
+/* keep split headings painted while the light variables animate (chromium could drop them mid-frame) */
+.ca { contain: paint; }
+.ca::before,
+.ca::after { will-change: transform; }
+.hero-word > .gl canvas { will-change: transform; }
