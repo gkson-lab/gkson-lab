@@ -568,7 +568,7 @@
       var i = 0;
       radios.forEach(function (r, k) { r.checked = r.value === name; if (r.checked) i = k; });
       if (lensEl) lensEl.style.setProperty('--tx', (i * 44) + 'px');
-      if (nameEl) nameEl.textContent = name;
+      if (nameEl) nameEl.textContent = name === 'prism' ? 'chrome' : name;
       metas.forEach(function (m) { m.setAttribute('content', BG[name] || BG.prism); });
     }
     show(root.getAttribute('data-theme') || 'prism');

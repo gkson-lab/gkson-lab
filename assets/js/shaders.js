@@ -145,12 +145,50 @@ function start() {
             u_colorBack: color('#00000000'),
             u_colorTint: color(warm ? '#ffb454' : '#ffffff'),
             u_repetition: warm ? 3 : 2,
-            u_shiftRed: warm ? 0.7 : 0.45,
-            u_shiftBlue: warm ? 0.15 : 0.45,
+            u_shiftRed: warm ? 0.7 : 0.3,
+            u_shiftBlue: warm ? 0.15 : 0.3,
             u_contour: 0.4,
             u_softness: 0.12,
             u_distortion: 0.08,
             u_angle: 70
+          }, sizing({ fit: 'contain', scale: 1 }))
+        };
+      }
+    },
+
+    // hero: "gk-labs" in liquid metal, lined up with the html heading underneath (chrome theme)
+    hero: {
+      when: (t) => t === 'prism',
+      async build(host) {
+        await fontsReady;
+        const h1 = host.querySelector('h1');
+        const gl = host.querySelector('.gl');
+        const box = gl.getBoundingClientRect();
+        const cs = getComputedStyle(h1);
+        const size = parseFloat(cs.fontSize);
+        const range = document.createRange();
+        range.selectNodeContents(h1);
+        const tr = range.getBoundingClientRect();
+        const m = document.createElement('canvas').getContext('2d');
+        m.font = '400 ' + size + 'px instrument';
+        const descent = m.measureText('gk-labs').fontBoundingBoxDescent || size * 0.25;
+        const cv = wordCanvas(box, 'gk-labs', { size: size, x: tr.left - box.left, y: tr.bottom - box.top - descent, fill: '#000000', letterSpacing: parseFloat(cs.letterSpacing) || 0 });
+        const key = Math.round(box.width) + 'x' + Math.round(box.height);
+        if (!host._metal || host._metalKey !== key) {
+          host._metalKey = key;
+          host._metal = load(URL.createObjectURL((await toProcessedLiquidMetal(cv.toDataURL('image/png'))).pngBlob));
+        }
+        return {
+          key: 'hero-metal',
+          frag: liquidMetalFragmentShader,
+          speed: 0.7,
+          frame: 2400,
+          mipmaps: ['u_image'],
+          uniforms: Object.assign({
+            u_image: await host._metal, u_isImage: true, u_shape: 0,
+            u_colorBack: color('#00000000'), u_colorTint: color('#ffffff'),
+            u_repetition: 2, u_shiftRed: 0.3, u_shiftBlue: 0.3, u_contour: 0.4,
+            u_softness: 0.1, u_distortion: 0.07, u_angle: 70
           }, sizing({ fit: 'contain', scale: 1 }))
         };
       }
@@ -181,7 +219,7 @@ function start() {
         }
         const pal = t === 'thermal' ? ['#5a1fd1', '#ff2d55', '#ff6a1a', '#ffb000', '#fff1a8']
           : t === 'print' ? ['#00c8eb', '#f0008c', '#ffcd00', '#00c8eb']
-          : ['#12b5ff', '#19e0b0', '#ffd23d', '#ff3b4a', '#7c3cff'];
+          : ['#ffffff', '#8d929c', '#d9dce2', '#3d6bff', '#ffd23d'];
         return {
           key: 'gem',
           frag: gemSmokeFragmentShader,
@@ -366,7 +404,8 @@ function start() {
   document.addEventListener('gk:theme', () => {
     hosts.forEach((host) => {
       const st = state.get(host);
-      if (host.getAttribute('data-shader') === 'paper' || (st && st.mount)) mount(host);
+      const kind = host.getAttribute('data-shader');
+      if (kind === 'paper' || kind === 'hero' || (st && st.mount)) mount(host);
     });
   });
 
