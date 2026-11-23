@@ -5,7 +5,7 @@ i'm **gk**, and this is **gk-labs**.
 
 <a href="https://gkson-lab.github.io/gkson-lab/"><img src="assets/readme/site-preview.jpg" alt="the gk-labs site: the word gk-labs in chrome next to a glass prism splitting light" width="100%"></a>
 
-🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** · gk-labs, go poke the prism
+🔗 **[gkson-lab.github.io/gkson-lab](https://gkson-lab.github.io/gkson-lab/)** 
 
 - helping with Oreon and Oreon security over there ➡️
 - making useful or useless apps and tools
