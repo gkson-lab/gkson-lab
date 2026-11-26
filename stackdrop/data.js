@@ -102,7 +102,19 @@ window.SD_DATA = (() => {
     { id: 'langset', name: 'polyglot', desc: 'own every language.', test: s => langs.every(x => s.owned[x.id]), reward: 1500 },
     { id: 'coset', name: 'conglomerate', desc: 'own every company.', test: s => cos.every(x => s.owned[x.id]), reward: 1500 },
     { id: 'limited', name: 'right place, right time', desc: 'own a limited card.', test: s => limited.some(x => s.owned[x.id]), reward: 300 },
+    { id: 'holo', name: 'shiny', desc: 'pull a holo.', test: s => Object.values(s.vars || {}).some(v => v.holo), reward: 100 },
+    { id: 'sig', name: 'autograph', desc: 'pull a signed card.', test: s => Object.values(s.vars || {}).some(v => v.sig), reward: 800 },
+    { id: 'master', name: 'master set', desc: 'own every variant of one card.', test: s => Object.values(s.vars || {}).some(v => variants.every(x => v[x.id])), reward: 3000 },
     { id: 'streak7', name: 'green squares', desc: 'claim the daily 7 days in a row.', test: s => s.streak >= 7, reward: 700 },
   ];
-  return { R, rarity, langs, cos, limited, all, byId, packs, achievements };
+  // variants roll on top of every pull. odds in percent, mult scales recycle value.
+  const variants = [
+    { id: 'base', label: 'base', odds: 78, mult: 1 },
+    { id: 'holo', label: 'holo', odds: 12, mult: 2 },
+    { id: 'full', label: 'full art', odds: 5, mult: 3 },
+    { id: 'gold', label: 'gold', odds: 2.5, mult: 5 },
+    { id: 'glitch', label: 'misprint', odds: 1.5, mult: 6 },
+    { id: 'sig', label: 'signed', odds: 1, mult: 10 },
+  ];
+  return { variants, R, rarity, langs, cos, limited, all, byId, packs, achievements };
 })();

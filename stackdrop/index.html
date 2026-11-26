@@ -11,7 +11,7 @@
 <header class="top">
   <h1>stackdrop</h1>
   <div class="wallet" aria-live="polite">
-    <span><b id="coins">0</b> coins</span><span><b id="bits">0</b> bits</span><span>legendary in <b id="pity">40</b></span>
+    <span><b id="coins">0</b> coins</span><span><b id="bits">0</b> bits</span><span>legendary in <b id="pity">40</b></span><span class="odds">variants: holo 12% · full art 5% · gold 2.5% · misprint 1.5% · signed 1%</span>
   </div>
   <div class="earn">
     <button id="commit" class="btn ghost" type="button">push a commit · +2</button>
@@ -33,6 +33,7 @@
     <div class="bar">
       <label>set <select id="f-set"><option value="all">all</option><option value="lang">languages</option><option value="co">companies</option><option value="lim">limited</option></select></label>
       <label>rarity <select id="f-rar"><option>all</option><option>common</option><option>rare</option><option>epic</option><option>legendary</option><option>mythic</option></select></label>
+      <label>variant <select id="f-var"><option value="all">all</option><option value="base">base</option><option value="holo">holo</option><option value="full">full art</option><option value="gold">gold</option><option value="glitch">misprint</option><option value="sig">signed</option></select></label>
       <label>show <select id="f-own"><option value="all">all</option><option value="have">owned</option><option value="need">missing</option></select></label>
       <button id="recycle" class="btn ghost" type="button">recycle dupes into bits</button>
     </div>
@@ -58,6 +59,6 @@
   <div class="bar"><button id="reveal-all" class="btn" type="button">flip all</button><button id="reveal-close" class="btn ghost" type="button">done</button></div>
 </dialog>
 <div id="toasts" class="toasts" aria-live="polite"></div>
-<script src="data.js"></script><script src="app.js"></script>
+<script src="data.js"></script><script src="art.js"></script><script src="app.js"></script>
 </body>
 </html>

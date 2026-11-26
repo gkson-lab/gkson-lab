@@ -2,9 +2,13 @@
   const D = window.SD_DATA, KEY = 'stackdrop-v1', PITY = 40, ORDER = ['common','rare','epic','legendary','mythic'];
   const $ = s => document.querySelector(s), el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
   const fresh = () => ({ coins: 500, bits: 0, owned: {}, stats: { opened: 0, pulls: 0, best: 'common' }, pity: 0,
-    lastDaily: 0, streak: 0, limitedUse: {}, ach: {}, history: [], seen: {} });
+    lastDaily: 0, streak: 0, vars: {}, limitedUse: {}, ach: {}, history: [], seen: {} });
   let S;
   try { S = Object.assign(fresh(), JSON.parse(localStorage.getItem(KEY) || 'null') || {}); } catch { S = fresh(); }
+  for (const [id, k] of Object.entries(S.owned)) if (!S.vars[id]) S.vars[id] = { base: k };
+  const VORDER = D.variants.map(v => v.id), vmeta = id => D.variants.find(v => v.id === id);
+  const rollVariant = () => { let x = rnd() * 100; for (const v of D.variants) { x -= v.odds; if (x <= 0) return v.id; } return 'base'; };
+  const bestVar = id => VORDER.slice().reverse().find(v => S.vars[id]?.[v]) || 'base';
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
   const rnd = () => crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
   const rank = r => ORDER.indexOf(r);
@@ -38,36 +42,44 @@
       if (S.pity + 1 >= PITY) floor = 'legendary';
       const c = pull(pack, floor);
       S.pity = rank(c.rarity) >= 3 ? 0 : S.pity + 1;
-      const dupe = !!S.owned[c.id];
+      const v = rollVariant(), vs = S.vars[c.id] = S.vars[c.id] || {};
+      const dupe = !!vs[v]; vs[v] = (vs[v] || 0) + 1;
       S.owned[c.id] = (S.owned[c.id] || 0) + 1;
       if (rank(c.rarity) > rank(S.stats.best)) S.stats.best = c.rarity;
-      cards.push({ c, dupe });
+      cards.push({ c, dupe, v });
     }
     S.stats.opened++; S.stats.pulls += cards.length;
     S.history.unshift({ t: Date.now(), pack: pack.name, ids: cards.map(x => x.c.id) }); S.history.length = Math.min(S.history.length, 30);
     save(); checkAch(); render(); reveal(cards, pack);
   }
 
-  function cardEl(c, count) {
-    const e = el('div', `card r-${c.rarity}${c.set === 'lim' ? ' lim' : ''}`);
+  const sigPath = name => { // a scrawl drawn from the letters of the name, not anyone's real signature
+    let d = 'M8 30', x = 8; for (const ch of name.replace(/\s/g, '')) { const k = ch.charCodeAt(0); x += 9;
+      d += ` q ${4 + k % 5} ${-(10 + k % 14)} 9 ${(k % 7) - 2}`; }
+    return `<svg class="sig" viewBox="0 0 ${x + 30} 44" aria-hidden="true"><path d="${d} l 18 -6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  };
+  function cardEl(c, count, v = 'base') {
+    const e = el('div', `card r-${c.rarity} v-${v}${c.set === 'lim' ? ' lim' : ''}`);
     e.style.setProperty('--h', c.hue);
     const glyph = c.name.replace(/[^a-z#+]/g, '').slice(0, 3);
-    e.innerHTML = `<span class="tier">${c.rarity}${c.set === 'lim' ? ' · limited' : ''}</span><span class="glyph">${glyph}</span>
-      <span class="nm">${c.name}</span><span class="st">${c.stat}</span><span class="ln">${c.line}</span>${count > 1 ? `<span class="ct">x${count}</span>` : ''}`;
+    const vl = v === 'base' ? '' : ` · ${vmeta(v).label}`;
+    e.innerHTML = `<div class="art">${window.SD_ART(c)}</div>${v === 'glitch' ? `<div class="art ghost">${window.SD_ART(c)}</div>` : ''}<div class="foil"></div>
+      <span class="tier">${c.rarity}${c.set === 'lim' ? ' · limited' : ''}${vl}</span><span class="glyph">${glyph}</span>
+      <span class="nm">${c.name}</span><span class="st">${c.stat}</span><span class="ln">${c.line}</span>${v === 'sig' ? sigPath(c.name) : ''}${count > 1 ? `<span class="ct">x${count}</span>` : ''}`;
     return e;
   }
 
   function reveal(cards, pack) {
     const dlg = $('#reveal'), row = $('#reveal-row'); row.innerHTML = '';
     $('#reveal-title').textContent = pack.name;
-    cards.sort((a, b) => rank(a.c.rarity) - rank(b.c.rarity));
-    cards.forEach(({ c, dupe }, i) => {
+    cards.sort((a, b) => rank(a.c.rarity) - rank(b.c.rarity) || VORDER.indexOf(a.v) - VORDER.indexOf(b.v));
+    cards.forEach(({ c, dupe, v }, i) => {
       const w = el('button', 'flip'); w.type = 'button'; w.setAttribute('aria-label', 'flip card');
-      const back = el('div', 'back', '<span>stackdrop</span>'), front = cardEl(c);
+      const back = el('div', 'back', '<span>stackdrop</span>'), front = cardEl(c, 0, v);
       if (dupe) front.append(el('span', 'dupe', 'dupe'));
       if (!dupe) front.append(el('span', 'new', 'new'));
       w.append(back, front);
-      w.onclick = () => { w.classList.add('on'); w.setAttribute('aria-label', `${c.rarity} ${c.name}`); };
+      w.onclick = () => { w.classList.add('on'); w.setAttribute('aria-label', `${c.rarity} ${vmeta(v).label} ${c.name}`); if (v !== 'base') toast(`${vmeta(v).label} ${c.name}!`); };
       w.style.setProperty('--i', i); row.append(w);
     });
     $('#reveal-all').onclick = () => row.querySelectorAll('.flip').forEach((f, i) => setTimeout(() => f.click(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : i * 140));
@@ -94,14 +106,17 @@
 
   function sellDupes() {
     let n = 0, got = 0;
-    for (const [id, k] of Object.entries(S.owned)) if (k > 1) { const v = D.rarity[D.byId[id].rarity].sell; got += v * (k - 1); n += k - 1; S.owned[id] = 1; }
+    for (const [id, vs] of Object.entries(S.vars)) {
+      for (const [v, k] of Object.entries(vs)) if (k > 1) { got += D.rarity[D.byId[id].rarity].sell * vmeta(v).mult * (k - 1); n += k - 1; vs[v] = 1; }
+      S.owned[id] = Object.values(vs).reduce((a, b) => a + b, 0);
+    }
     if (!n) return toast('no dupes to recycle.');
     S.bits += got; save(); render(); toast(`recycled ${n} dupes into ${fmt(got)} bits.`);
   }
   function craft(c) {
     const cost = D.rarity[c.rarity].craft;
     if (S.bits < cost) return toast(`need ${fmt(cost - S.bits)} more bits.`);
-    S.bits -= cost; S.owned[c.id] = (S.owned[c.id] || 0) + 1; save(); checkAch(); render(); toast(`crafted ${c.name}.`);
+    S.bits -= cost; S.owned[c.id] = (S.owned[c.id] || 0) + 1; S.vars[c.id] = S.vars[c.id] || {}; S.vars[c.id].base = (S.vars[c.id].base || 0) + 1; save(); checkAch(); render(); toast(`crafted ${c.name}.`);
   }
   function checkAch() {
     for (const a of D.achievements) if (!S.ach[a.id] && a.test(S)) { S.ach[a.id] = Date.now(); S.coins += a.reward; toast(`achievement: ${a.name}. +${a.reward}`); }
@@ -138,12 +153,20 @@
   }
   function renderCollection() {
     const g = $('#grid'); g.innerHTML = '';
-    const set = $('#f-set').value, rar = $('#f-rar').value, own = $('#f-own').value;
+    const fv = $('#f-var').value, set = $('#f-set').value, rar = $('#f-rar').value, own = $('#f-own').value;
     const list = D.all.filter(c => (set === 'all' || c.set === set) && (rar === 'all' || c.rarity === rar) &&
-      (own === 'all' || (own === 'have' ? S.owned[c.id] : !S.owned[c.id])));
+      (own === 'all' || (own === 'have' ? S.owned[c.id] : !S.owned[c.id])) && (fv === 'all' || S.vars[c.id]?.[fv]));
     for (const c of list) {
       const k = S.owned[c.id] || 0, wrap = el('div', 'slot');
-      if (k) wrap.append(cardEl(c, k));
+      if (k) {
+        let cur = fv !== 'all' ? fv : bestVar(c.id); wrap.append(cardEl(c, k, cur));
+        const chips = el('div', 'chips');
+        for (const v of VORDER) { const has = S.vars[c.id]?.[v]; const b = el('button', `chip${v === cur ? ' on' : ''}`, vmeta(v).label); b.type = 'button';
+          b.disabled = !has; b.title = has ? `x${has}` : 'not owned';
+          b.onclick = () => { cur = v; wrap.firstChild.replaceWith(cardEl(c, k, v)); chips.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === b)); };
+          chips.append(b); }
+        wrap.append(chips);
+      }
       else { const m = el('div', 'card missing', `<span class="tier">${c.rarity}</span><span class="glyph">?</span><span class="nm">${c.set === 'lim' ? 'limited' : 'not found'}</span>`); wrap.append(m); }
       if (c.set !== 'lim') { const b = el('button', 'btn sm', `craft · ${D.rarity[c.rarity].craft} bits`); b.type = 'button'; b.onclick = () => craft(c); wrap.append(b); }
       g.append(wrap);
@@ -166,7 +189,7 @@
     document.querySelectorAll('[role=tab]').forEach(x => x.setAttribute('aria-selected', x === t));
     document.querySelectorAll('[role=tabpanel]').forEach(p => p.hidden = p.id !== t.getAttribute('aria-controls'));
   });
-  ['#f-set', '#f-rar', '#f-own'].forEach(s => $(s).onchange = renderCollection);
+  ['#f-set', '#f-rar', '#f-own', '#f-var'].forEach(s => $(s).onchange = renderCollection);
   $('#daily').onclick = daily; $('#commit').onclick = commit; $('#recycle').onclick = sellDupes;
   $('#reveal-close').onclick = () => $('#reveal').close();
   $('#export').onclick = async () => { const code = btoa(JSON.stringify(S));
@@ -178,5 +201,10 @@
     if (!CODES[k]) return toast('unknown code.'); S.seen = S.seen || {}; if (S.seen[k]) return toast('already redeemed.');
     S.seen[k] = 1; S.coins += CODES[k]; save(); renderTop(); toast(`+${CODES[k]} coins.`); };
 
+  // foil follows the pointer on holo, gold, full art and signed cards
+  document.addEventListener('pointermove', e => {
+    const c = e.target.closest?.('.card:not(.v-base)'); if (!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const b = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - b.left) / b.width); c.style.setProperty('--my', (e.clientY - b.top) / b.height);
+  });
   render(); setInterval(tick, 1000);
 })();
