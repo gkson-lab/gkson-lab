@@ -58,14 +58,24 @@
       d += ` q ${4 + k % 5} ${-(10 + k % 14)} 9 ${(k % 7) - 2}`; }
     return `<svg class="sig" viewBox="0 0 ${x + 30} 44" aria-hidden="true"><path d="${d} l 18 -6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   };
+  const STAT = { lang: ['speed', 'safety', 'joy'], co: ['scale', 'shipping', 'hype'], lim: ['luck', 'timing', 'lore'] };
+  const setList = id => D.all.filter(x => x.set === id), num = c => { const l = setList(c.set); return `${String(l.indexOf(c) + 1).padStart(3, '0')}/${String(l.length).padStart(3, '0')}`; };
   function cardEl(c, count, v = 'base') {
     const e = el('div', `card r-${c.rarity} v-${v}${c.set === 'lim' ? ' lim' : ''}`);
     e.style.setProperty('--h', c.hue);
-    const glyph = c.name.replace(/[^a-z#+]/g, '').slice(0, 3);
-    const vl = v === 'base' ? '' : ` · ${vmeta(v).label}`;
-    e.innerHTML = `<div class="art">${window.SD_ART(c)}</div>${v === 'glitch' ? `<div class="art ghost">${window.SD_ART(c)}</div>` : ''}<div class="foil"></div>
-      <span class="tier">${c.rarity}${c.set === 'lim' ? ' · limited' : ''}${vl}</span><span class="glyph">${glyph}</span>
-      <span class="nm">${c.name}</span><span class="st">${c.stat}</span><span class="ln">${c.line}</span>${v === 'sig' ? sigPath(c.name) : ''}${count > 1 ? `<span class="ct">x${count}</span>` : ''}`;
+    const gems = '◆'.repeat(rank(c.rarity) + 1) + '◇'.repeat(4 - rank(c.rarity));
+    const glyph = c.name.replace(/[^a-z#+]/g, '').slice(0, 4);
+    const centre = c.logo ? `<img class="logo" src="img/logos/${c.logo}.svg" alt="" loading="lazy" decoding="async">` : `<span class="glyph">${glyph}</span>`;
+    const stats = c.stats.map((n, i) => `<li><span>${STAT[c.set][i]}</span><i style="--n:${n}"></i><b>${n}</b></li>`).join('');
+    e.innerHTML = `<div class="frame">
+      <header class="cap"><span class="nm">${c.name}</span>${c.year ? `<span class="yr">${c.year}</span>` : ''}</header>
+      <div class="art"><div class="bg">${window.SD_ART(c)}</div>${v === 'glitch' ? `<div class="bg ghost">${window.SD_ART(c)}</div>` : ''}${centre}<div class="foil"></div>
+        ${v === 'sig' ? sigPath(c.name) : ''}</div>
+      <div class="type"><span>${c.kind}</span><span class="gems" title="${c.rarity}">${gems}</span></div>
+      <ul class="stats">${stats}</ul>
+      <p class="ln">${c.line}</p>
+      <footer class="foot"><span>${c.set === 'lim' ? 'limited' : c.set === 'lang' ? 'syntax' : 'startup'} ${num(c)}</span><span>${c.rarity}${v === 'base' ? '' : ' · ' + vmeta(v).label}</span></footer>
+    </div>${count > 1 ? `<span class="ct">x${count}</span>` : ''}`;
     return e;
   }
 
