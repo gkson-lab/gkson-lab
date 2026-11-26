@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>stackdrop</title>
+<meta name="description" content="a pack-opening game for programming languages and tech companies, with timed limited drops.">
+<link rel="icon" href="../favicon.svg">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <h1>stackdrop</h1>
+  <div class="wallet" aria-live="polite">
+    <span><b id="coins">0</b> coins</span><span><b id="bits">0</b> bits</span><span>legendary in <b id="pity">40</b></span>
+  </div>
+  <div class="earn">
+    <button id="commit" class="btn ghost" type="button">push a commit · +2</button>
+    <button id="daily" class="btn" type="button">claim daily</button>
+  </div>
+</header>
+<nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" aria-controls="p-shop">packs</button>
+  <button role="tab" aria-selected="false" aria-controls="p-col">collection</button>
+  <button role="tab" aria-selected="false" aria-controls="p-log">progress</button>
+  <button role="tab" aria-selected="false" aria-controls="p-set">save</button>
+</nav>
+<main>
+  <section id="p-shop" role="tabpanel">
+    <p class="lede">limited packs follow your local clock. each one opens on a schedule, holds a few opens per window, and carries cards you can't craft.</p>
+    <ul id="packs" class="packs"></ul>
+  </section>
+  <section id="p-col" role="tabpanel" hidden>
+    <div class="bar">
+      <label>set <select id="f-set"><option value="all">all</option><option value="lang">languages</option><option value="co">companies</option><option value="lim">limited</option></select></label>
+      <label>rarity <select id="f-rar"><option>all</option><option>common</option><option>rare</option><option>epic</option><option>legendary</option><option>mythic</option></select></label>
+      <label>show <select id="f-own"><option value="all">all</option><option value="have">owned</option><option value="need">missing</option></select></label>
+      <button id="recycle" class="btn ghost" type="button">recycle dupes into bits</button>
+    </div>
+    <p id="progress" class="progress"></p>
+    <div id="grid" class="grid"></div>
+  </section>
+  <section id="p-log" role="tabpanel" hidden>
+    <p id="stats" class="progress"></p>
+    <h2>achievements</h2><ul id="ach" class="rows"></ul>
+    <h2>recent pulls</h2><ul id="hist" class="rows"></ul>
+  </section>
+  <section id="p-set" role="tabpanel" hidden>
+    <h2>redeem a code</h2>
+    <div class="bar"><input id="code" placeholder="code" aria-label="code"><button id="redeem" class="btn" type="button">redeem</button></div>
+    <h2>move your save</h2>
+    <textarea id="io" rows="4" placeholder="paste a save code here" aria-label="save code"></textarea>
+    <div class="bar"><button id="export" class="btn ghost" type="button">copy save</button><button id="import" class="btn ghost" type="button">load save</button><button id="reset" class="btn danger" type="button">wipe</button></div>
+  </section>
+</main>
+<dialog id="reveal">
+  <h2 id="reveal-title">pack</h2>
+  <div id="reveal-row" class="reveal-row"></div>
+  <div class="bar"><button id="reveal-all" class="btn" type="button">flip all</button><button id="reveal-close" class="btn ghost" type="button">done</button></div>
+</dialog>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<script src="data.js"></script><script src="app.js"></script>
+</body>
+</html>
